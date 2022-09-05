@@ -12,11 +12,12 @@ export default {
         if (existingAccount)
           throw new Error('This email/username is already taken');
         const hash = await bcrypt.hash(password, 10);
-        return client.user.create({
+        await client.user.create({
           data: { firstName, lastName, username, email, password: hash },
         });
+        return { ok: true };
       } catch (error) {
-        return error;
+        return { ok: false, error: error.message };
       }
     },
   },
