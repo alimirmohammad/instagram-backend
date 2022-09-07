@@ -19,5 +19,8 @@ export default {
       });
       return count > 0;
     },
+    photos({ id }) {
+      return client.user.findUnique({ where: { id } }).photos();
+    },
   },
 };
