@@ -8,6 +8,9 @@ export default {
     hashtags({ id }) {
       return client.hashtag.findMany({ where: { photos: { some: { id } } } });
     },
+    likes({ id }) {
+      return client.like.count({ where: { photoId: id } });
+    },
   },
   Hashtag: {
     photos({ id }) {
