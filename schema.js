@@ -2,6 +2,7 @@ import path from 'path';
 import url from 'url';
 import { loadFiles } from '@graphql-tools/load-files';
 import { mergeResolvers, mergeTypeDefs } from '@graphql-tools/merge';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,5 +20,6 @@ const loadedResolvers = await loadFiles(`${__dirname}/**/*.resolvers.js`, {
   },
 });
 
-export const typeDefs = mergeTypeDefs(loadedTypeDefs);
-export const resolvers = mergeResolvers(loadedResolvers);
+const typeDefs = mergeTypeDefs(loadedTypeDefs);
+const resolvers = mergeResolvers(loadedResolvers);
+export const schema = makeExecutableSchema({ typeDefs, resolvers });
